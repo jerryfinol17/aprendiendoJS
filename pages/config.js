@@ -1,0 +1,102 @@
+export const BASE_URL = 'https://www.saucedemo.com/';
+
+export const CREDENTIALS = {
+    standard: { username: 'standard_user', password: 'secret_sauce' },
+    lockedOut: { username: 'locked_out_user', password: 'secret_sauce' },      // nombres más descriptivos
+    problem: { username: 'problem_user', password: 'secret_sauce' },
+    performanceGlitch: { username: 'performance_glitch_user', password: 'secret_sauce' },
+    visual: { username: 'visual_user', password: 'secret_sauce' },
+    error: { username: 'error_user', password: 'secret_sauce' },
+
+    // NEGATIVE CASES
+    invalidUser: { username: 'ElPePe', password: 'secret_sauce' },
+    invalidPassword: { username: 'standard_user', password: 'QuesoConArroz' },
+    blankUser: { username: '', password: 'secret_sauce' },
+    blankPassword: { username: 'standard_user', password: '' },
+    allBlank: { username: '', password: '' },
+};
+
+export const LOCATORS = {
+
+    //GENERAL LOCATORS
+    title: '[data-test="title"]',
+    productItem: '.inventory_item',
+    productName: '.inventory_item_name',
+    productPrice: '.inventory_item_price',
+    cartBadge: '[data-test="shopping-cart-badge"]',
+    removeBtnPrefix: '[data-test^="remove-"]',
+    errorMsg: '[data-test="error"]',
+    cartItem: '[data-test="inventory-item"]',
+    cartQuantity: '[data-test="item-quantity"]',
+    cancelBtn: '[data-test="cancel"]',
+
+
+    //LOGIN / LOGOUT
+    usernameInput: '[data-test="username"]',
+    passwordInput: '[data-test="password"]',
+    loginBtn: '[data-test="login-button"]',
+    swagLabsLogo: '.login_logo',
+    burgerMenuBtn: '#react-burger-menu-btn',
+    logoutLink: '[data-test="logout-sidebar-link"]',
+
+    //INVENTORY
+    inventoryTitle: '.title',
+    primaryHeader: '[data-test="primary-header"]',
+    crossBurgerBtn: '#react-burger-cross-btn',
+    aboutLink: '[data-test="about-sidebar-link"]',
+    resetLink: '[data-test="reset-sidebar-link"]',
+    sortDropdown:'[data-test="product_sort_container"]',
+    productDescription: '[data-test="inventory-item-desc"]',
+    addBtnPrefix: '[data-test^="add-to-cart-"]',
+
+    //CART
+    continueBtn:'[data-test="continue-shopping"]',
+    checkoutBtn: '[data-test="checkout"]',
+
+    //CHECKOUT
+
+          //Step one
+    firstNameInput: '[data-test="firstName"]',
+    lastNameInput: '[data-test="lastName"]',
+    zipCodeInput: '[data-test="postalCode"]',
+    continueButton: '[data-test="continue"]',
+
+         //Step two
+    paymentInfoLabel: '[data-test="payment-info-label"]',
+    paymentInfoValue: '[data-test="payment-info-value"]',
+    shippingInfoLabel: '[data-test="shipping-info-label"]',
+    shippingInfoValue: '[data-test="shipping-info-value"]',
+    totalInfoLabel: '[data-test="total-info-label"]',
+    subtotalLabel: '.summary_subtotal_label',
+    taxLabel: '.summary_tax_label',
+    totalLabel: '.summary_total_label',
+    finishBtn: '[data-test="finish"]',
+
+        //Complete
+    completeHeader: '[data-test="complete-header"]',
+    completeText: '[data-test="complete-text"]',
+    backHomeBtn: '[data-test="back-to-products"]',
+};
+
+export const DEFAULT_CHECKOUT_DATA = {
+    valid: {
+        firstName: 'Juan',
+        lastName: 'Pérez',
+        zipCode: 'C1425',
+    },
+    invalidName:{
+        firstName: '',
+        lastName: 'Perez',
+        zipCode: 'C1425',
+    },
+    invalidLastname:{
+        firstName: 'Juan',
+        lastName:'',
+        zipCode:'C1425',
+    },
+    invalidZipCode:{
+        firstName: 'Juan',
+        lastName:'Perez',
+        zipCode:'',
+    },
+};

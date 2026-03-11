@@ -17,9 +17,9 @@ const SELECTORS = {
     backToInventoryBTN:'[data-test="continue-shopping"]',
     checkoutBtn: '[data-test="checkout"]',
     //Checkout Step one
-    firstName: '[data-test="firstName"]',
-    lastName: '[data-test="lastName"]',
-    zipCode: '[data-test="postalCode"]',
+    firstNameInput: '[data-test="firstName"]',
+    lastNameInput: '[data-test="lastName"]',
+    zipCodeInput: '[data-test="postalCode"]',
     continueButton: '[data-test="continue"]',
     //Checkout Step two
     finishButton: '[data-test="finish"]',
@@ -28,15 +28,17 @@ const SELECTORS = {
     backHomeBtn: '[data-test="back-to-products"]'
 }
 
-async function login(page,username = 'standard_user', password = 'secret_sauce') {
-    await page.fill(SELECTORS.usernameInput, username);
-    await page.fill(SELECTORS.passwordInput, password);
-    await page.click(SELECTORS.loginBtn);
+async function login(page,{username = 'standard_user', password = 'secret_sauce'} = {}) {
+    const {usernameInput, passwordInput, loginBtn} = SELECTORS;
+    await page.fill(usernameInput, username);
+    await page.fill(passwordInput, password);
+    await page.click(loginBtn);
     await page.waitForLoadState('networkidle');
     console.log(`Login Exitoso con usuario: ${username}`);
 }
 async function getCartBadgeCount(page) {
-    const badge = await page.locator(SELECTORS.cartBadgeLink);
+    const{cartBadgeLink}=SELECTORS;
+    const badge = await page.locator(cartBadgeLink);
     if (await badge.isVisible()) {
         const text = await badge.innerText();
         return Number(text) || 0;
@@ -45,80 +47,83 @@ async function getCartBadgeCount(page) {
 }
 
 async function inventoryAndCart(page) {
+    const{addBackPack,cartBadgeLink,backToInventoryBTN,addFleeceJack,removeBackPack,checkoutBtn}=SELECTORS;
     expect(page.url()).toContain('inventory.html');
     console.log(`Actual Url:${page.url()}`);
     console.log(`Estamos loggeados! sigue agregar un producto`);
-    await page.click(SELECTORS.addBackPack);
+    await page.click(addBackPack);
     expect(await getCartBadgeCount(page)).toBe(1);
     console.log('Agregamos un producto! sigue ir al carrito')
-    await page.click(SELECTORS.cartBadgeLink);
+    await page.click(cartBadgeLink);
     await page.waitForLoadState('networkidle');
     expect(page.url()).toContain(`cart.html`);
     console.log('Navegamos al carrito correctamente! sigue volver al inventario')
-    await page.click(SELECTORS.backToInventoryBTN);
+    await page.click(backToInventoryBTN);
     await page.waitForLoadState('networkidle');
     expect(page.url()).toContain(`inventory.html`);
     console.log('Estamos en el inventario sigue agregar otro producto')
-    await page.click(SELECTORS.addFleeceJack);
+    await page.click(addFleeceJack);
     expect(await getCartBadgeCount(page)).toBe(2);
     console.log('Agregamos el segundo producto! sigue volver al carrito y quitar un producto')
-    await page.click(SELECTORS.cartBadgeLink);
-    await page.click(SELECTORS.removeBackPack);
+    await page.click(cartBadgeLink);
+    await page.click(removeBackPack);
     expect(await getCartBadgeCount(page)).toBe(1);
     console.log('Retirar el producto funciono! sigue empezar el checkout');
-    await page.click(SELECTORS.checkoutBtn);
+    await page.click(checkoutBtn);
 }
 
-async function checkout(page,firstName = 'PePe', lastName = 'Tin', zipCode = '51654') {
+async function checkout(page,{firstName = 'PePe', lastName = 'Tin', zipCode = '51654'}={}) {
+    const{firstNameInput,lastNameInput,zipCodeInput,continueButton,finishButton,title ,backHomeBtn}=SELECTORS;
     expect(page.url()).toContain(`checkout-step-one.html`);
     console.log('Vamos a agregar los datos para el checkout');
-    await page.fill(SELECTORS.firstName, firstName);
+    await page.fill(firstNameInput, firstName);
     console.log('Primer nombre Listo! sigue colocar el apellido')
-    await page.fill(SELECTORS.lastName, lastName);
+    await page.fill(lastNameInput, lastName);
     console.log('Apellido Listo! sigue colocar el zip code')
-    await page.fill(SELECTORS.zipCode, zipCode);
+    await page.fill(zipCodeInput, zipCode);
     console.log('Zip Code Listo! sigue avanzar a step two')
-    await page.click(SELECTORS.continueButton);
+    await page.click(continueButton);
     await page.waitForLoadState('networkidle');
     expect(page.url()).toContain(`checkout-step-two.html`);
     console.log('Estamos en la ultima seccion del checkout! solo haremos una pasada rapida!')
-    await page.click(SELECTORS.finishButton);
+    await page.click(finishButton);
     await page.waitForLoadState('networkidle');
     expect(page.url()).toContain(`checkout-complete.html`);
     console.log('Estamos en los ultimos pasos! comprobamos el titulo y nos volvemos al inventario')
-    await expect(page.locator(SELECTORS.title)).toHaveText('Thank you for your order!');
+    await expect(page.locator(title)).toHaveText('Thank you for your order!');
     console.log('El titulo es correcto! hacemos screenshot y vamos al inventario')
     await page.screenshot({path: "Complete-page2.png"})
     console.log(`La comprobacion del titulo funciono! sigue volver al inventario `)
-    await page.click(SELECTORS.backHomeBtn);
+    await page.click(backHomeBtn);
     await page.waitForLoadState('networkidle');
     expect(page.url()).toContain(`inventory.html`);
     console.log('el proceso se hizo de forma exitosa! vamos a hacer logout');
 }
 async function logout(page) {
-    await page.click(SELECTORS.burgerBtn);
-    await page.click(SELECTORS.logoutLink);
+    const {burgerBtn,logoutLink}= SELECTORS;
+    await page.click(burgerBtn);
+    await page.click(logoutLink);
     await page.waitForLoadState('networkidle');
     expect(page.url()).toBe('https://www.saucedemo.com/');
     console.log('Se Logro!!!')}
 
 async function testLoginFallido(page) {
+    const {errorMsg}= SELECTORS;
     await page.goto('https://www.saucedemo.com/');
     await page.waitForLoadState('networkidle');
-    await page.fill(SELECTORS.usernameInput, 'Usuario_Equivocado')
-    await page.fill(SELECTORS.passwordInput, 'Contrasena-inexistente.xd')
-    await page.click(SELECTORS.loginBtn);
-    const errorLocator = await page.locator(SELECTORS.errorMsg);
+    await login(page,{username: 'Usuario_Equivocado', password: 'Contrasena-inexistente.xd'});
+    const errorLocator = await page.locator(errorMsg);
     await expect(errorLocator).toBeVisible();
     await expect (errorLocator).toContainText('Username and password do not match any user in this service');
     console.log('✅ Login fallido validado correctamente (credenciales inválidas)')
 }
 
 async function testLoginLockedUser(page) {
+    const {errorMsg}= SELECTORS;
     await page.goto('https://www.saucedemo.com/');
     await page.waitForLoadState('networkidle');
-    await login(page,'locked_out_user', 'secret_sauce');
-    const errorLocator = await page.locator(SELECTORS.errorMsg);
+    await login(page,{username:'locked_out_user',password:'secret_sauce'});
+    const errorLocator = await page.locator(errorMsg);
     await expect(errorLocator).toBeVisible();
     await expect(errorLocator).toContainText('Sorry, this user has been locked out.');
     console.log('✅ Usuario locked_out validado correctamente')
@@ -136,7 +141,7 @@ async function testLoginLockedUser(page) {
         console.log(`Aqui comenzamos: ${initialUrl}`);
         await login(page);
         await inventoryAndCart(page);
-        await checkout(page);
+        await checkout(page,{firstName:'Batman', lastName:'es Mejor que',zipCode:'El Guion'});
         await logout(page);
         console.log("=== TEST LOGIN FALLIDO ===");
         await testLoginFallido(page);
