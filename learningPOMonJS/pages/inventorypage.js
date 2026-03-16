@@ -6,6 +6,7 @@ class InventoryPage extends BasePage {
         super(page);
         this.primaryHeader     = page.locator(LOCATORS.primaryHeader);
         this.cartBadge         = page.locator(LOCATORS.cartBadge);
+        this.cartLink         = page.locator(LOCATORS.cartLink);
         this.burgerMenuBtn     = page.locator(LOCATORS.burgerMenuBtn);
         this.aboutLink         = page.locator(LOCATORS.aboutLink);
         this.resetLink         = page.locator(LOCATORS.resetLink);
@@ -141,7 +142,7 @@ class InventoryPage extends BasePage {
         return result;
     }
     async goToCart(){
-        await this.clickElement(this.cartBadge)
+        await this.clickElement(this.cartLink)
     }
 }
 

@@ -48,6 +48,7 @@ export const LOCATORS = {
     sortDropdown:'[data-test="product_sort_container"]',
     productDescription: '[data-test="inventory-item-desc"]',
     addBtnPrefix: '[data-test^="add-to-cart-"]',
+    cartLink: '[data-test="shopping-cart-link"]',
 
     //CART
     continueShoppingBtn:'[data-test="continue-shopping"]',
@@ -89,15 +90,24 @@ export const CHECKOUT_DATA = {
         firstName: '',
         lastName: 'Perez',
         zipCode: 'C1425',
+        expectedError: 'Error: First Name is required',
     },
     invalidLastname:{
         firstName: 'Juan',
         lastName:'',
         zipCode:'C1425',
+        expectedError: 'Error: Last Name is required',
     },
     invalidZipCode:{
         firstName: 'Juan',
         lastName:'Perez',
         zipCode:'',
+        expectedError: 'Error: Postal Code is required',
     },
+    allBlakCheckout:{
+        firstName: '',
+        lastName:'',
+        zipCode:'',
+        expectedError: 'Error: First Name is required',
+    }
 };
