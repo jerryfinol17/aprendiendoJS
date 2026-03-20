@@ -1,88 +1,96 @@
-# 🚀 Aprendiendo JS + Playwright | Mi camino a QA Automation
+# Playwright + POM + TypeScript QA Journey
 
-![Playwright](https://img.shields.io/badge/Playwright-1.58.2-2C2C2C?style=flat&logo=playwright)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-yellow)
-![Status](https://img.shields.io/badge/Status-Learning%20%F0%9F%94%A5-brightgreen)
+[![Playwright](https://img.shields.io/badge/Playwright-1.45+-45ba75?style=for-the-badge&logo=playwright&logoColor=white)](https://playwright.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
-**Repo de aprendizaje** donde estoy pasando de **Python** (mi fuerte) a **JavaScript vanilla + Playwright** para convertirme en **Junior QA Automator**.
+**My active learning journey migrating from Python to TypeScript + Playwright for modern QA Automation.**  
 
-### 🎯 Objetivo
-Dominar Playwright desde cero → Page Object Model → TypeScript → CI/CD para entrar a la compañía como QA.
+Started from zero in JS → built vanilla interactions → implemented full **Page Object Model (POM)** → migrating everything to **TypeScript** with strong typing and best practices.  
 
----
+This repo is proof of consistent daily effort: in just a few weeks, I went from basic scripts to a maintainable E2E framework on SauceDemo — the same dedication and structured learning I bring to every real-world project and team.
 
-### 📁 Estructura del proyecto
+### Why This Repo Matters (My Real Effort)
+- **From Python roots** (my main stack: Playwright/Selenium/Pytest) to JS/TS ecosystem  
+- **Daily commits** and progressive improvements: simple navigation → full POM → TS migration  
+- **Focus on clean, scalable code**: POM with inheritance, centralized config, async/await everywhere  
+- **Built-in reliability**: auto videos/traces/screenshots on failure, HTML reporter  
+- **Honest roadmap**: not finished yet — actively adding fixtures, CI, Allure, API/visual testing  
 
-```bash
-aprendiendoJS/
-├── firststepsonJS/          # Primeros pasos vanilla (navigate, fill, SauceDemo básico)
-├── learningPOMonJS/         # Nivel POM completo
-│   ├── pages/
+This is not a "copy-paste tutorial". It's **my hands-on grind**, with real mistakes fixed, concepts internalized, and code that I would confidently extend or hand over in a freelance gig or job.
+
+### Key Features & Achievements
+- ✅ Full **Page Object Model** (BasePage + Login/Inventory/Cart/Checkout pages)  
+- ✅ Centralized config (credentials, locators, test data)  
+- ✅ Complete SauceDemo E2E flows: login (positive/negative), inventory actions, cart consistency, checkout validation  
+- ✅ Modern Playwright setup: async/await, `test.describe()`, `beforeEach()`, HTML reporter, video/trace on failure  
+- ✅ **TypeScript migration in progress** (83%+ TS already — strong typing, interfaces, better refactoring)  
+- ✅ Evidence folders: `videos/` for recordings, HTML reports generated  
+
+### Project Structure
+
+``` bash
+playwright-ts-qa-journey/
+├── firststepsonJS/              # Vanilla JS basics (navigation, forms, simple SauceDemo)
+├── learningPOMonJS/             # Full POM implementation
+│   ├── pages/                   # Core POM
 │   │   ├── basePage.ts
 │   │   ├── loginPage.ts
 │   │   ├── inventoryPage.ts
 │   │   ├── cartPage.ts
 │   │   ├── checkoutPage.ts
-│   │   └── config.ts          # ← datos, credenciales, locators
-│   └── tests/
+│   │   └── config.ts            # Centralized data & locators
+│   └── tests/                   # Test suites
 │       ├── loginTest.spec.ts
-│       ├── inventoryTest.spec.ts  ← describe + beforeEach
+│       ├── inventoryTest.spec.ts
 │       ├── cartTest.spec.ts
 │       ├── checkoutTest.spec.ts
-│       └── testE2E.spec.ts
-├── playwright.config.ts     # Config pro (html report, video, trace, slowMo)
-├── .gitignore               # Limpio y profesional
-└── package.json
+│       └── testE2E.spec.ts      # Full purchase flow
+├── videos/                      # Auto-recorded videos on failure
+├── playwright.config.ts         # Pro config: reporter, video, trace, slowMo
+├── tsconfig.json                # TypeScript compiler options
+├── package.json                 # Dependencies (@playwright
+/test, typescript)
+└── README.md
 ```
 
-### Cómo correr los tests (en 10 segundos)
-# 1. Clonar e instalar
-git clone https://github.com/jerryfinol17/aprendiendoJS.git
-cd aprendiendoJS
-npm install
 
-# 2. Correr TODO
-npx playwright test
-
-# 3. Correr solo un grupo
-npx playwright test inventoryTest.spec.ts
-
-# 4. Ver reporte bonito
-npx playwright show-report
-
-
-### Lo que ya logré (hace 3 semanas empecé de cero)
-1. JS vanilla + async/await + ES modules  
-2. Page Object Model completo (6 páginas + config centralizado)  
-3. Tests con test.describe(), test.beforeEach(), test.fail() y datos externos  
-4. Flujo E2E SauceDemo: Login → Inventory → Cart → Checkout (positivo y negativos)  
-5. Evidencias automáticas: videos + screenshots on-failure + trace  
-6. Configuración profesional de Playwright
-
-###  Evidencias(pronto voy a subir GIFs y capturas aquí) 
-1. Videos en carpeta videos/
-2. Reporte HTML generado  
-3. Screenshots de cada paso crítico
-
-###  Roadmap
-
+### Quick Start
 ```bash
-Migrar todo a TypeScript + fixtures custom
- ''En progreso''
- 
-GitHub Actions CI + Allure report
- ''Pendiente''
-
-API testing + Visual testing + data-driven (CSV)
- ''Pendiente''
-
-
+git clone https://github.com/jerryfinol17/playwright-ts-qa-journey.git
+cd playwright-ts-qa-journey
+npm install
+npx playwright install --with-deps
 ```
-### ¿Querés ayudarme?
-Críticas constructivas → bienvenidas  
-Tips de senior → siempre acepto  
-PRs para mejorar → sí por favor
 
+### Run All Tests:
+
+``` bash
+npx playwright test
+```
+### View HTML report
+
+``` bash
+npx playwright show-report
+```
+### Run specific suite
+
+``` bash
+npx playwright test loginTest.spec.ts
+```
+### Current Status & Roadmap
+**Done**: Vanilla JS → POM → E2E flows → TS migration started  
+**In Progress**: Full TS conversion + custom fixtures  
+**Next**: Allure reporting + API testing + visual assertions + data-driven (CSV/JSON)
+
+
+### Why Hire Me? (The Real Value)
+
+
+This repo shows **my learning style**: structured, persistent, self-driven. I don't stop at "works" — I refactor, add typing, automate evidences, plan CI/CD. The same energy goes into client projects: clean code, reliable tests, quick adaptation to new stacks, and constant improvement.Open to freelance/contract QA Automation roles (Playwright, TypeScript, Python, Selenium, API, CI/CD).  → DM me on X @GordoRelig3d
+
+→ Email: jerrytareas17@gmail.com¡From Python dev to TS QA learner — tests always green, skills always growing! 
 
 
 
