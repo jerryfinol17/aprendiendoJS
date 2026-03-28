@@ -1,5 +1,5 @@
 # Playwright + TypeScript + POM Framework
-**Production-Ready E2E Automation Framework | SauceDemo**
+**Production-Ready E2E Automation Template | SauceDemo**
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Playwright](https://img.shields.io/badge/Playwright-2C2C2C?style=for-the-badge&logo=playwright&logoColor=white)](https://playwright.dev)
@@ -7,24 +7,24 @@
 [![GitHub Actions](https://github.com/jerryfinol17/playwright-typescript-saucedemo-pom-framework/actions/workflows/main.yml/badge.svg)](https://github.com/jerryfinol17/playwright-typescript-saucedemo-pom-framework/actions)
 [![Coverage](https://img.shields.io/badge/Coverage-94%25-brightgreen?style=for-the-badge)](https://github.com/jerryfinol17/playwright-typescript-saucedemo-pom-framework)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE.md)
-[![Playwright Version](https://img.shields.io/badge/Playwright-1.58.2-blue?style=for-the-badge)](https://playwright.dev)
 
-A **scalable and maintainable End-to-End automation framework** built with **Playwright + TypeScript + Page Object Model (POM)**.
+A **scalable, maintainable and production-ready** End-to-End automation framework built with **Playwright + TypeScript + Page Object Model**.
 
-Designed with production standards in mind: high code coverage, centralized configuration, automatic evidence collection, and clean architecture ready for any enterprise CI/CD pipeline.
+Designed for real enterprise projects: clean architecture, centralized configuration, high coverage, and zero-flakiness approach.
 
 ---
 
 ### ✨ Key Features
 
-- **Robust Page Object Model** with `BasePage` inheritance for maximum reusability
-- Centralized and strongly-typed configuration (credentials, URLs, test data)
-- **Data-driven tests** including positive and negative scenarios
-- **94% code coverage** using V8 + monocart-reporter
-- Automatic evidence collection: **videos, traces, and screenshots** on failure only
-- Strict TypeScript throughout the project
-- Modern Playwright configuration (smart retries, parallel execution, baseURL, multiple reporters)
-- Easily extensible for **API Testing**, Visual Testing, and custom fixtures
+- **Robust Page Object Model** with `BasePage` inheritance
+- **Centralized Configuration** using environment variables (`dotenv`) + strongly typed `config/`
+- Locators and test data fully centralized (`locators.ts` + `CheckoutData.ts`)
+- **Data-driven testing** (positive + negative scenarios)
+- **94% code coverage** (V8 + monocart-reporter)
+- Automatic evidence collection: videos, traces and screenshots **only on failure**
+- Strict TypeScript + modern Playwright config (retries, parallel, multi-browser + mobile)
+- Ready for CI/CD (GitHub Actions with browser & device matrix)
+- Easily extensible for API Testing, Visual Testing, and custom reporters
 
 ---
 
@@ -32,35 +32,37 @@ Designed with production standards in mind: high code coverage, centralized conf
 
 ```bash
 playwright-typescript-saucedemo-pom-framework/
-├── pages/           # ← Page Objects (BasePage, LoginPage, InventoryPage...)
-├── tests/           # ← Test suites and complete E2E flows
-├── docs/            # ← Additional documentation
-├── coverage-report/ # ← Generated coverage reports
+├── config/              # ← Centralized config (env, locators, test data)
+│   ├── env.ts
+│   ├── locators.ts
+│   ├── CheckoutData.ts
+│   └── index.ts
+├── pages/               # ← Page Objects (BasePage, LoginPage, InventoryPage...)
+├── tests/               # ← Test suites and E2E flows
+├── docs/
+├── coverage-report/
 ├── playwright.config.ts
-├── package.json
-├── tsconfig.json
-└── .gitignore
+├── .env.example
+└── package.json
 ```
 ### Quick Start (under 2 minutes)
 ```bash
-git clone https://github.com/jerryfinol17/playwright-typescript-saucedemo-pom-framework
+git clone https://github.com/jerryfinol17/playwright-typescript-saucedemo-pom-framework.git
 cd playwright-typescript-saucedemo-pom-framework
+
+# Copy environment variables
+cp .env.example .env
 
 npm install
 npx playwright install --with-deps
-```
-### Run the tests:
 
-```bash
-# Run all tests
+# Run tests
 npx playwright test
 
-# View HTML report
-npx playwright show-report
-
-# View coverage report
+# View beautiful HTML report
 npx playwright show-report
 ```
+
 
 ### Reports & Evidence:
 - **Beautiful HTML Report** → npx playwright show-report
@@ -75,20 +77,22 @@ npx playwright show-report
 
 ```bash
 // pages/LoginPage.ts
-import { BasePage } from './BasePage';
+// Using centralized config
+import { BASE_URL, CREDENTIALS, LOCATORS, CHECKOUT_DATA } from '../config';
 
+await page.goto(BASE_URL);
+await loginPage.login(CREDENTIALS.standard.username, CREDENTIALS.standard.password);
+
+// Example in Page Object
 export class LoginPage extends BasePage {
-  private usernameInput = this.page.locator('#user-name');
-  private passwordInput = this.page.locator('#password');
-  private loginButton = this.page.locator('#login-button');
-
   async login(username: string, password: string) {
-    await this.usernameInput.fill(username);
-    await this.passwordInput.fill(password);
-    await this.loginButton.click();
+    await this.fillInput(LOCATORS.usernameInput, username);
+    await this.fillInput(LOCATORS.passwordInput, password);
+    await this.clickElement(LOCATORS.loginBtn);
   }
 }
 ```
+
 ### Want to see more?
 Explore the /pages and /tests folders.
 
@@ -103,14 +107,16 @@ Clean migration path from Python, Cypress, or Selenium
 
 I use this as my **base template** for every new automation project.
 
-###  About Me – QA Automation Engineer
+ ### Services I Offer:
+ As a **QA Automation Engineer**, I specialize in building **enterprise-grade automation frameworks**.
+ ### Available services:
+- Production-ready Playwright + TypeScript POM frameworks
+- Framework migrations (Cypress → Playwright, Selenium → Playwright, Python → Playwright)
+- CI/CD setup + advanced reporting & evidence
+- Custom fixtures, API testing, Visual testing
 
-I am a **QA Automation Engineer** specialized in building **enterprise-grade automation frameworks** from scratch.
+Interested in a custom framework for your project?Contact me → jerrytareas17@gmail.com (mailto:jerrytareas17@gmail.com)
 
-Services I offer:
-- Production-ready Playwright + TypeScript + POM frameworks
-- Framework migrations (Python → Playwright, Cypress → Playwright, etc.)
-- CI/CD integration + advanced reporting
 
 **Looking for a professional automation framework for your team or project?**
 
