@@ -71,7 +71,7 @@ npx playwright show-report
 
 - Videos, traces, and screenshots are **automatically saved** only when tests fail
 ![newReport.png](docs/newReport.png)
-[E2E.webm](videos/E2E.webm)
+![E2E.gif](videos/E2E.gif)
 
 ###  Code Example (POM)
 

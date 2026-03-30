@@ -13,7 +13,6 @@ coverage
 
 test-results/
 playwright-report/
-videos/
 screenshots/
 traces/
 
